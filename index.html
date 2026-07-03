@@ -918,10 +918,10 @@ function arizaBildir() {
   }
 
   // Google Sheets'e acil bildirim gönder
-  gsArizaBildir({ formNo, makine, vardiya, tarih, operator, mesaj, badItems, warnItems });
-  showToast('📲 Bakım ekibine bildirim gönderildi!', 'ok');
+  gsArizaBildir({ formNo, makine, vardiya, tarih, operator, mesaj, badItems, warnItems }).then(basarili => {
+    if (basarili) showToast('📲 Bakım ekibine bildirim gönderildi!', 'ok');
+  });
 }
-
 // ── Fotoğraf ──────────────────────────────────────────────────
 function fotoEkle(input) {
   const files = Array.from(input.files);
@@ -1084,25 +1084,38 @@ async function gsRequest(payload) {
 }
 
 async function gsArizaBildir(data) {
+  const arizaMaddeler = [
+    ...(data.badItems || []).map(i => ({
+      maddeNo: i.no, maddeKriter: i.kriter, kritiklik: 'ARIZA', not: notlar[i.id] || ''
+    })),
+    ...(data.warnItems || []).map(i => ({
+      maddeNo: i.no, maddeKriter: i.kriter, kritiklik: 'UYARI', not: notlar[i.id] || ''
+    }))
+  ];
   try {
-    await gsRequest({
-      action: 'otonomBakimAriza',
-      sheet: 'OtonomBakim_Arizalar',
-      formNo: data.formNo,
-      makine: data.makine,
-      vardiya: data.vardiya,
-      tarih: data.tarih,
-      operator: data.operator,
-      arizalar: (data.badItems || []).map(i => ({
-        no: i.no, kriter: i.kriter, kritiklik: i.kritiklik,
-        not: notlar[i.id] || ''
-      })),
-      uyarilar: (data.warnItems || []).map(i => ({
-        no: i.no, kriter: i.kriter, not: notlar[i.id] || ''
-      })),
-      kayitZamani: new Date().toISOString()
+    const sonuc = await gsRequest({
+      action: 'saveOtonomBakim',
+      form: {
+        FormNo: data.formNo,
+        MakineNo: data.makine,
+        Vardiya: data.vardiya,
+        Tarih: data.tarih,
+        Operator: data.operator,
+        KayitZamani: new Date().toISOString(),
+        arizalar: arizaMaddeler
+      }
     });
-  } catch(e) {}
+    if (!sonuc || !sonuc.ok) {
+      console.error('gsArizaBildir hata:', sonuc?.error);
+      showToast('❌ Bakım ekibine bildirim gönderilemedi: ' + (sonuc?.error || 'bilinmeyen hata'), 'err');
+      return false;
+    }
+    return true;
+  } catch(e) {
+    console.error('gsArizaBildir istisna:', e);
+    showToast('❌ Bakım ekibine bildirim gönderilemedi (bağlantı hatası).', 'err');
+    return false;
+  }
 }
 
 // ── Başarı Ekranı ─────────────────────────────────────────────
