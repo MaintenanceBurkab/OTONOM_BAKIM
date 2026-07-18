@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#0a0a0a">
-<title>FR-40 — OTONOM BAKIM</title>
+<title>FR-40 — OTONOM BAKIM v5.0</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -351,6 +351,14 @@ textarea { resize: vertical; min-height: 80px; }
   border: 1px solid rgba(245,196,0,.2);
 }
 
+
+/* ── MAKİNE GRUBU / BAĞLANTI DURUMU ── */
+.group-info{margin-top:10px;padding:10px 12px;border:1px solid rgba(245,196,0,.25);border-radius:7px;background:rgba(245,196,0,.06);font-size:12px;color:var(--muted)}
+.group-info strong{color:var(--gold)}
+.conn-pill{font-family:var(--mono);font-size:10px;padding:4px 8px;border-radius:12px;border:1px solid var(--border2);color:var(--muted)}
+.conn-pill.online{color:var(--ok);border-color:rgba(0,200,83,.4)}
+.conn-pill.offline{color:var(--warn);border-color:rgba(255,152,0,.4)}
+
 /* ── LOADING ── */
 .loading-overlay {
   display: none; position: fixed; inset: 0;
@@ -597,13 +605,29 @@ textarea { resize: vertical; min-height: 80px; }
 
 <script>
 // ═══════════════════════════════════════════════════════════════
-// BURKAB — FR-40 Otonom Bakım Formu v2.0
+// BURKAB — FR-40 Otonom Bakım Formu v5.0
 // IATF 16949 §8.5.1.6 uyumlu
 // ═══════════════════════════════════════════════════════════════
 
 const GS_URL = 'https://script.google.com/macros/s/AKfycbxMvsbGS0IrqJo4xScv7BoQRIXUt19gXVX-SqAwoczq0FkPc8gt6M-tqHCBn06N9ms/exec';
 const SHEET_OB = 'OtonomBakim';
 const SHEET_OB_SERT = 'OtonomBakim_Sertifika';
+const CLIENT_VERSION = '5.0.0';
+const PENDING_KEY = 'burkab_ob_pending_v5';
+const MACHINE_GROUPS = {
+  'OKM-01':{id:'GRUP-K01',members:['OKM-01','YA-06']},
+  'YA-06': {id:'GRUP-K01',members:['OKM-01','YA-06']},
+  'OKM-02':{id:'GRUP-K02',members:['OKM-02','YA-02']},
+  'YA-02': {id:'GRUP-K02',members:['OKM-02','YA-02']},
+  'OKM-03':{id:'GRUP-K03',members:['OKM-03','YA-03']},
+  'YA-03': {id:'GRUP-K03',members:['OKM-03','YA-03']},
+  'OKM-04':{id:'GRUP-K04',members:['OKM-04','YA-04']},
+  'YA-04': {id:'GRUP-K04',members:['OKM-04','YA-04']},
+  'OKM-05':{id:'GRUP-K05',members:['OKM-05','YA-05']},
+  'YA-05': {id:'GRUP-K05',members:['OKM-05','YA-05']},
+  'KM-01': {id:'GRUP-K06',members:['KM-01','YA-01']},
+  'YA-01': {id:'GRUP-K06',members:['KM-01','YA-01']}
+};
 
 // ── Kontrol Listesi Tanımları ──────────────────────────────────
 const KONTROL_LISTESI = [
@@ -994,130 +1018,54 @@ function formDogrula() {
 
 // ── Form Gönder ───────────────────────────────────────────────
 async function formGonder() {
-  if (gonderildi) return;
-  if (!formDogrula()) return;
-
-  const makine   = document.getElementById('makineNo').value;
-  const bolum    = document.getElementById('bolum').value;
-  const vardiya  = document.getElementById('vardiya').value;
-  const tarih    = document.getElementById('tarih').value;
-  const operator = document.getElementById('operatorAd').value.trim();
-  const genelNot = document.getElementById('genelNot').value.trim();
-  const imzaBakim = document.getElementById('imzaBakim').value.trim();
-  document.getElementById('imzaKontrol').value = operator;
-
-  const values = Object.values(durumler);
-  const ok    = values.filter(v => v === 'ok').length;
-  const warn  = values.filter(v => v === 'warn').length;
-  const bad   = values.filter(v => v === 'bad').length;
-  const pct   = Math.round((ok + warn) / KONTROL_LISTESI.length * 100);
-
-  // Satır verisi oluştur
-  const row = [
-    formNo,
-    new Date().toISOString(),
-    tarih,
-    makine,
-    bolum,
-    vardiya,
-    operator,
-    ok, warn, bad,
-    KONTROL_LISTESI.length,
-    pct,
-    // Her maddenin durumu
-    ...KONTROL_LISTESI.map(i => durumler[i.id] || ''),
-    // Her maddenin notu
-    ...KONTROL_LISTESI.map(i => notlar[i.id] || ''),
-    genelNot,
-    imzaBakim,
-    bad > 0 ? 'ARIZA VAR' : warn > 0 ? 'UYARI VAR' : 'SORUNSUZ',
-    fotolar.length + ' fotoğraf',
-    'BURKAB FR-40 v2.0 — IATF 16949 §8.5.1.6'
-  ];
-
-  // Başlıklar
-  const headers = [
-    'FormNo', 'KayitZamani', 'Tarih', 'MakineNo', 'Bolum', 'Vardiya', 'Operator',
-    'TamamSayisi', 'UyariSayisi', 'ArizaSayisi', 'ToplamMadde', 'TamamlanmaPct',
-    ...KONTROL_LISTESI.map(i => i.no + '_Durum'),
-    ...KONTROL_LISTESI.map(i => i.no + '_Not'),
-    'GenelNot', 'BakimOnay', 'GenelDurum', 'FotoSayisi', 'Versiyon'
-  ];
-
-  showLoading(true);
-  document.getElementById('syncBar').classList.add('show');
-
+  if (gonderildi || !formDogrula()) return;
+  const makine=document.getElementById('makineNo').value, bolum=document.getElementById('bolum').value;
+  const vardiya=document.getElementById('vardiya').value, tarih=document.getElementById('tarih').value;
+  const operator=document.getElementById('operatorAd').value.trim();
+  const genelNot=document.getElementById('genelNot').value.trim(), imzaBakim=document.getElementById('imzaBakim').value.trim();
+  document.getElementById('imzaKontrol').value=operator;
+  const values=Object.values(durumler), ok=values.filter(v=>v==='ok').length, warn=values.filter(v=>v==='warn').length, bad=values.filter(v=>v==='bad').length;
+  const pct=Math.round((ok+warn)/KONTROL_LISTESI.length*100), group=MACHINE_GROUPS[makine]||null;
+  const maddeler=KONTROL_LISTESI.map(i=>({id:i.id,no:i.no,bolum:i.bolum,kriter:i.kriter,kritiklik:i.kritiklik,iatf:i.iatf,durum:durumler[i.id],not:notlar[i.id]||''}));
+  const form={
+    formNo, kayitZamani:new Date().toISOString(), tarih, makineNo:makine, bolum, vardiya, operator,
+    grupId:group?.id||'', grupUyeleri:group?.members||[makine], tamamSayisi:ok, uyariSayisi:warn, arizaSayisi:bad,
+    toplamMadde:KONTROL_LISTESI.length, tamamlanmaPct:pct, maddeler, genelNot, bakimOnay:imzaBakim,
+    genelDurum:bad>0?'ARIZA VAR':warn>0?'UYARI VAR':'SORUNSUZ', fotolar, fotoZorunlu:false,
+    istemciSurumu:CLIENT_VERSION, kaynak:'FR-40', cihazId:getDeviceId_()
+  };
+  showLoading(true); document.getElementById('syncBar').classList.add('show');
   try {
-    await gsRequest({ action: 'syncOtonomBakim', sheet: SHEET_OB, row, headers, formNo });
-
-    // Arıza varsa ayrıca kaydet
-    if (bad > 0) {
-      await gsArizaBildir({ formNo, makine, vardiya, tarih, operator, badItems: KONTROL_LISTESI.filter(i => durumler[i.id] === 'bad'), warnItems: KONTROL_LISTESI.filter(i => durumler[i.id] === 'warn') });
-    }
-
-    gonderildi = true;
-    showSuccess({ makine, tarih, vardiya, operator, ok, warn, bad, pct, formNo });
+    const sonuc=await gsRequest({action:'saveOtonomFormV5',form});
+    if(!sonuc?.ok) throw new Error(sonuc?.error||'Sunucu kaydı doğrulanamadı');
+    gonderildi=true;
+    showSuccess({makine,tarih,vardiya,operator,ok,warn,bad,pct,formNo:sonuc.formNo||formNo});
+    await syncPending();
   } catch(e) {
-    // localStorage yedek
-    try {
-      const key = 'burkab_ob_pending';
-      const pending = JSON.parse(localStorage.getItem(key) || '[]');
-      pending.push({ row, headers, timestamp: new Date().toISOString() });
-      localStorage.setItem(key, JSON.stringify(pending));
-    } catch(e2) {}
-    showToast('⚠️ Bağlantı hatası — kayıt cihazda saklandı.', 'err');
-  } finally {
-    showLoading(false);
-    document.getElementById('syncBar').classList.remove('show');
-  }
+    queuePending_({action:'saveOtonomFormV5',form});
+    showToast('⚠️ Kayıt çevrimdışı kuyruğa alındı: '+e.message,'err');
+  } finally { showLoading(false); document.getElementById('syncBar').classList.remove('show'); }
 }
 
+function getDeviceId_(){let id=localStorage.getItem('burkab_ob_device');if(!id){id='DEV-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8);localStorage.setItem('burkab_ob_device',id)}return id}
+function queuePending_(payload){const q=JSON.parse(localStorage.getItem(PENDING_KEY)||'[]');if(!q.some(x=>x.form?.formNo===payload.form?.formNo)){q.push(payload);localStorage.setItem(PENDING_KEY,JSON.stringify(q))}}
 // ── Sheets İstek ─────────────────────────────────────────────
-async function gsRequest(payload) {
-  await fetch(GS_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'text/plain' },
-    body: JSON.stringify(payload)
+function gsRequest(payload, timeoutMs=20000) {
+  return new Promise((resolve,reject)=>{
+    const cb='obv5_'+Date.now()+'_'+Math.random().toString(36).slice(2);
+    const script=document.createElement('script'); let done=false;
+    const finish=(err,data)=>{if(done)return;done=true;clearTimeout(timer);delete window[cb];script.remove();err?reject(err):resolve(data)};
+    window[cb]=data=>finish(null,data);
+    script.onerror=()=>finish(new Error('Apps Script bağlantı hatası'));
+    script.src=GS_URL+'?callback='+encodeURIComponent(cb)+'&payload='+encodeURIComponent(JSON.stringify(payload));
+    document.head.appendChild(script);
+    const timer=setTimeout(()=>finish(new Error('Sunucu zaman aşımı')),timeoutMs);
   });
-  return { ok: true };
 }
 
-async function gsArizaBildir(data) {
-  const arizaMaddeler = [
-    ...(data.badItems || []).map(i => ({
-      maddeNo: i.no, maddeKriter: i.kriter, kritiklik: 'ARIZA', not: notlar[i.id] || ''
-    })),
-    ...(data.warnItems || []).map(i => ({
-      maddeNo: i.no, maddeKriter: i.kriter, kritiklik: 'UYARI', not: notlar[i.id] || ''
-    }))
-  ];
-  try {
-    const sonuc = await gsRequest({
-      action: 'saveOtonomBakim',
-      form: {
-        FormNo: data.formNo,
-        MakineNo: data.makine,
-        Vardiya: data.vardiya,
-        Tarih: data.tarih,
-        Operator: data.operator,
-        KayitZamani: new Date().toISOString(),
-        arizalar: arizaMaddeler
-      }
-    });
-    if (!sonuc || !sonuc.ok) {
-      console.error('gsArizaBildir hata:', sonuc?.error);
-      showToast('❌ Bakım ekibine bildirim gönderilemedi: ' + (sonuc?.error || 'bilinmeyen hata'), 'err');
-      return false;
-    }
-    return true;
-  } catch(e) {
-    console.error('gsArizaBildir istisna:', e);
-    showToast('❌ Bakım ekibine bildirim gönderilemedi (bağlantı hatası).', 'err');
-    return false;
-  }
+async function gsArizaBildir(data){
+  return gsRequest({action:'saveOtonomIssueV5',formNo:data.formNo,makineNo:data.makine,vardiya:data.vardiya,tarih:data.tarih,operator:data.operator});
 }
-
 // ── Başarı Ekranı ─────────────────────────────────────────────
 function showSuccess(data) {
   document.getElementById('mainContent').style.display = 'none';
@@ -1188,22 +1136,22 @@ function showLoading(show) {
 }
 
 // ── Bekleyen kayıtları senkronize et ─────────────────────────
-async function syncPending() {
-  try {
-    const key = 'burkab_ob_pending';
-    const pending = JSON.parse(localStorage.getItem(key) || '[]');
-    if (!pending.length) return;
-    for (const p of pending) {
-      await gsRequest({ action: 'syncOtonomBakim', sheet: SHEET_OB, row: p.row, headers: p.headers });
-    }
-    localStorage.removeItem(key);
-    showToast('☁️ ' + pending.length + ' bekleyen kayıt senkronize edildi', 'ok');
-  } catch(e) {}
+async function syncPending(){
+  if(!navigator.onLine)return;
+  const q=JSON.parse(localStorage.getItem(PENDING_KEY)||'[]');if(!q.length)return;
+  const kalan=[];let ok=0;
+  for(const p of q){try{const r=await gsRequest(p);if(!r?.ok)throw new Error(r?.error||'Hata');ok++}catch(e){kalan.push(p)}}
+  if(kalan.length)localStorage.setItem(PENDING_KEY,JSON.stringify(kalan));else localStorage.removeItem(PENDING_KEY);
+  if(ok)showToast('☁️ '+ok+' bekleyen kayıt senkronize edildi','ok');
 }
+function updateConnection_(){const p=document.getElementById('connPill');if(!p)return;p.textContent=navigator.onLine?'ÇEVRİMİÇİ':'ÇEVRİMDIŞI';p.className='conn-pill '+(navigator.onLine?'online':'offline')}
 
 // ── Start ────────────────────────────────────────────────────
 init();
-window.addEventListener('online', syncPending);
+updateConnection_();
+window.addEventListener('online',()=>{updateConnection_();syncPending()});
+window.addEventListener('offline',updateConnection_);
+setInterval(syncPending,60000);
 </script>
 </body>
 </html>
