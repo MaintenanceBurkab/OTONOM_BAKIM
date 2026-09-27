@@ -928,6 +928,207 @@ body{
   .panel-head{padding:11px 14px}
 }
 
+
+/* ============================================================
+   FR-40 — KOYUYA YAKIN PROFESYONEL RENK KATMANI
+   Aşırı siyah değil; lacivert/antrasit + canlı bölüm renkleri.
+   ============================================================ */
+
+body{
+  background:linear-gradient(135deg,#dfe8ee 0%,#eef3f6 52%,#dfeae7 100%);
+  color:#26343d;
+}
+
+/* Üst marka alanı */
+.hdr{
+  background:linear-gradient(100deg,#182832 0%,#203e50 55%,#185b55 100%);
+  border-bottom:2px solid #d6a72a;
+}
+.hdr-logo{color:#ffd34d}
+.hdr-sub{color:#c8d7df}
+.hdr-badge{
+  background:linear-gradient(135deg,#e7b735,#bd8900);
+  border-color:#f5d16a;
+  color:#17242c;
+}
+
+/* Ana paneller: açık gövde + koyu başlık */
+.panel{
+  border-color:#bccbd4;
+  box-shadow:0 3px 12px rgba(27,48,61,.09);
+}
+.panel-head{
+  background:linear-gradient(90deg,#263c4a,#344f5f);
+  border-bottom:1px solid #172a35;
+}
+.panel-title{color:#fff}
+.panel-ref{color:#c0d0d8}
+.panel-dot{background:#f1bc22}
+
+/* Form başlığı */
+.main>.panel:first-child .panel-head{
+  background:linear-gradient(90deg,#223947,#2c5367);
+  border-bottom:3px solid #d8a800;
+}
+.form-no-display{
+  background:linear-gradient(135deg,#e5f2fa,#f6fbfd);
+  border-color:#78afd0;
+  color:#155e86;
+}
+.iatf-ref{
+  background:#efe7fb;
+  border-color:#b998da;
+  color:#693b9d;
+}
+
+/* İlerleme */
+.prog-wrap{
+  background:#eef4f7;
+  border-color:#b9cbd5;
+}
+.prog-bar-bg{background:#cbd8df}
+.prog-bar-fill{
+  background:linear-gradient(90deg,#15915d,#d7a400);
+}
+
+/* Özet */
+.ozet-banner{
+  background:#eaf0f4;
+  border-color:#b9c8d1;
+}
+.oz-card{box-shadow:inset 0 0 0 1px rgba(255,255,255,.55)}
+.oz-ok{background:#dcefe5;border-color:#94c7aa}
+.oz-warn{background:#f8ecd4;border-color:#d8b66d}
+.oz-bad{background:#f5dddd;border-color:#d59a9a}
+.oz-pct{background:#dceaf5;border-color:#94b8d2}
+
+/* Bölüm başlıkları — koyu ton, renkli alt çizgi */
+#checkList>.panel:nth-child(1) .panel-head{
+  background:linear-gradient(90deg,#4b2b32,#63353d);
+  border-bottom:3px solid #dc6262;
+}
+#checkList>.panel:nth-child(2) .panel-head{
+  background:linear-gradient(90deg,#503a24,#684b2b);
+  border-bottom:3px solid #eda03b;
+}
+#checkList>.panel:nth-child(3) .panel-head{
+  background:linear-gradient(90deg,#50491f,#675d26);
+  border-bottom:3px solid #dfbd35;
+}
+#checkList>.panel:nth-child(4) .panel-head{
+  background:linear-gradient(90deg,#214d3b,#2c654c);
+  border-bottom:3px solid #55bb86;
+}
+#checkList>.panel:nth-child(5) .panel-head{
+  background:linear-gradient(90deg,#203f59,#2a5976);
+  border-bottom:3px solid #61addc;
+}
+#checkList>.panel .panel-title{color:#fff}
+#checkList>.panel .panel-ref{color:#d7e2e8}
+
+/* Kontrol maddeleri */
+.check-item{
+  background:#f7fafb;
+  border-color:#c2d0d8;
+}
+.check-item:hover{
+  box-shadow:0 5px 15px rgba(25,48,62,.12);
+}
+.check-item.state-ok{
+  background:#e9f6ef;
+  border-color:#82bd9f;
+  box-shadow:inset 4px 0 #12945a,0 2px 8px rgba(18,148,90,.08);
+}
+.check-item.state-warn{
+  background:#fff5e3;
+  border-color:#ddb76d;
+  box-shadow:inset 4px 0 #df8b00,0 2px 8px rgba(223,139,0,.08);
+}
+.check-item.state-bad{
+  background:#fbeaea;
+  border-color:#d79a9a;
+  box-shadow:inset 4px 0 #d33d3d,0 2px 8px rgba(211,61,61,.08);
+}
+
+.check-num{
+  background:#dce6eb;
+  border-color:#b7c8d1;
+}
+.check-kriter{color:#263b45}
+.check-metod{color:#657781}
+.check-tag{background:#fff;border-color:#bdccd4;color:#526872}
+
+.check-btns{
+  background:#edf2f5;
+  border-top-color:#cbd7de;
+}
+.cbtn{
+  color:#63757f;
+  border-right-color:#cbd7de;
+}
+.cbtn:not(.active):hover{background:#dce8ee;color:#263b45}
+.cbtn.ok-btn.active{background:#168b58}
+.cbtn.warn-btn.active{background:#db8a0b}
+.cbtn.bad-btn.active{background:#c93c3c}
+
+.check-note-area{
+  background:#fff;
+  border-top-color:#cbd7de;
+}
+
+/* Diğer bölümler */
+#mainContent>.panel:nth-of-type(2) .panel-head{
+  background:linear-gradient(90deg,#223e50,#2e5a70);
+  border-bottom:3px solid #54a7d8;
+}
+#mainContent>.panel:nth-of-type(3) .panel-head{
+  background:linear-gradient(90deg,#403050,#5a3e70);
+  border-bottom:3px solid #9a6bc8;
+}
+#mainContent>.panel:nth-of-type(4) .panel-head{
+  background:linear-gradient(90deg,#214b3a,#2d644c);
+  border-bottom:3px solid #58b986;
+}
+
+/* Alarm */
+.ariza-alert{
+  background:linear-gradient(90deg,#f8e1e1,#fdf0f0);
+  border-color:#d69b9b;
+  border-left:5px solid #c93737;
+}
+
+/* Butonlar */
+.btn-gonder{
+  background:linear-gradient(100deg,#176d9e,#187fb7 55%,#177d61);
+  box-shadow:0 5px 18px rgba(23,109,158,.22);
+}
+.btn-gonder:hover{
+  background:linear-gradient(100deg,#125b84,#126c9b 55%,#12654e);
+}
+.btn-pdf{
+  background:#eef4f7;
+  border-color:#b8c9d2;
+  color:#405964;
+}
+
+/* Fotoğraf / imza alanları */
+.foto-thumb{background:#dfe8ed;border-color:#b9cbd4}
+.btn-foto-ekle{background:#eaf1f5;border-color:#afc1cb;color:#566b75}
+.success-icon{background:#d9eee4}
+.success-meta{background:#f4f8fa;border-color:#c5d3da}
+.success-meta-val{color:#17678f}
+
+/* Toast */
+.toast{
+  background:#f5f8fa;
+  color:#263840;
+  border-color:#b9c9d2;
+}
+
+/* Kaydırma çubuğu */
+::-webkit-scrollbar-track{background:#dfe7eb}
+::-webkit-scrollbar-thumb{background:#9eb0ba}
+
 </style>
 </head>
 <body>
