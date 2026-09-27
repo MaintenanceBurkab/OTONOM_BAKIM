@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#0a0a0a">
+<meta name="theme-color" content="#2f414c">
 <title>FR-40 — OTONOM BAKIM v5.0</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -407,6 +407,527 @@ textarea { resize: vertical; min-height: 80px; }
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--dark); }
 ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* ============================================================
+   BURKAB FR-40 — AÇIK / PROFESYONEL TASARIM
+   Koyu siyah tema yerine Aplikatör + Ekipman Sicil Kartları ile
+   aynı görsel dil:
+   Mavi = bilgi / bölüm
+   Yeşil = tamam / uygun
+   Turuncu = uyarı
+   Kırmızı = arıza / kritik
+   Mor = özet / özel bilgi
+   Sarı = BURKAB marka vurgusu
+   ============================================================ */
+
+:root {
+  --black:   #eef3f7;
+  --dark:    #ffffff;
+  --dark2:   #f3f7fa;
+  --dark3:   #eaf1f5;
+  --border:  #d6e1e8;
+  --border2: #c4d2db;
+
+  --gold:    #d99b00;
+  --gold2:   #f0b400;
+  --gold3:   #9b7100;
+
+  --white:   #1f2d36;
+  --text:    #263740;
+  --muted:   #6f7f89;
+
+  --ok:      #0b9b5b;
+  --warn:    #e58a00;
+  --danger:  #d63b3b;
+
+  --ok-bg:   #eaf8f1;
+  --warn-bg: #fff5df;
+  --bad-bg:  #fff0f0;
+
+  --blue:    #1687d4;
+  --blue-bg: #eaf5ff;
+  --purple:  #7540bd;
+  --purple-bg:#f3edff;
+
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'IBM Plex Sans', sans-serif;
+}
+
+body {
+  background: #eef3f7;
+  color: var(--text);
+}
+
+.hdr {
+  background: linear-gradient(90deg,#263640,#344955);
+  border-bottom: 1px solid #c8d5dd;
+  box-shadow: 0 2px 12px rgba(35,55,68,.12);
+}
+
+.hdr-logo { color: #f4c23a; }
+.hdr-sub { color: #d1dce2; }
+.hdr-badge {
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.20);
+  color: #fff;
+}
+
+.panel {
+  background: #fff;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 10px rgba(38,61,76,.055);
+}
+
+.panel-head {
+  background: linear-gradient(90deg,#eaf5fb,#f5f9fb);
+  border-bottom: 1px solid #d8e5ec;
+}
+
+.panel-dot { background: var(--blue); }
+.panel-title { color: #176ba5; }
+.panel-ref { color: #788893; }
+
+.panel-body { background:#fff; }
+
+.field label { color:#6b7b85; }
+.field label .req { color:var(--danger); }
+
+input, select, textarea {
+  background: #fbfdfe;
+  border: 1px solid #cbd9e1;
+  color: #293a43;
+  box-shadow: inset 0 1px 2px rgba(30,60,80,.025);
+}
+
+input::placeholder, textarea::placeholder { color:#9aa8b0; }
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(22,135,212,.12);
+}
+
+input[readonly] {
+  color: #496b7e;
+  background:#f1f6f9;
+}
+
+select option { background:#fff; color:#263740; }
+
+.check-item {
+  border: 1px solid #d3e0e7;
+  background: #f9fbfc;
+  box-shadow:0 1px 5px rgba(30,60,80,.025);
+}
+
+.check-item.state-ok {
+  border-color:#8fd1b2;
+  background:#f1fbf6;
+}
+.check-item.state-warn {
+  border-color:#edc77e;
+  background:#fff9ed;
+}
+.check-item.state-bad {
+  border-color:#e8aaaa;
+  background:#fff5f5;
+}
+
+.check-num {
+  color:#6f7f89;
+  background:#edf3f6;
+  border:1px solid #ccd9e0;
+}
+.check-item.state-ok .check-num { border-color:var(--ok); color:var(--ok); background:#e5f8ee; }
+.check-item.state-warn .check-num { border-color:var(--warn); color:#b86d00; background:#fff2d7; }
+.check-item.state-bad .check-num { border-color:var(--danger); color:#c72f2f; background:#ffe9e9; }
+
+.check-kriter { color:#2b3d47; }
+.check-metod { color:#71818b; }
+
+.check-tag {
+  border-color:#d0dce3;
+  color:#667780;
+  background:#fff;
+}
+
+.check-btns { border-top:1px solid #d9e3e9; }
+
+.cbtn {
+  color:#70808a;
+  border-right-color:#d9e3e9;
+}
+
+.cbtn.ok-btn.active   { background:#16a363; color:#fff; }
+.cbtn.warn-btn.active { background:#e99a12; color:#fff; }
+.cbtn.bad-btn.active  { background:#d94343; color:#fff; }
+.cbtn:not(.active):hover { background:#edf4f7; color:#263740; }
+
+.check-note-area {
+  border-top:1px solid #d9e3e9;
+  background:#fff;
+}
+
+.sec-divider-line { background:#cddae2; }
+.sec-divider-label { color:#6b7c86; }
+
+.ozet-banner {
+  background:#fff;
+  border:1px solid var(--border);
+  box-shadow:0 2px 10px rgba(38,61,76,.05);
+}
+
+.oz-ok .oz-val { color:var(--ok); }
+.oz-warn .oz-val { color:var(--warn); }
+.oz-bad .oz-val { color:var(--danger); }
+.oz-pct .oz-val { color:#176ba5; }
+
+.prog-bar-bg { background:#dce7ed; }
+.prog-bar-fill {
+  background:linear-gradient(90deg,#16a363,#e0a500);
+}
+
+.prog-meta { color:#70808a; }
+
+.form-no-display {
+  color:#176ba5;
+  background:#edf6fb;
+  border:1px solid #c7e1f1;
+}
+
+.iatf-ref {
+  background:#f4edff;
+  border:1px solid #dac7f4;
+  color:#7041aa;
+}
+
+.group-info {
+  border:1px solid #b9ddef;
+  background:#eef8fd;
+  color:#687b85;
+}
+.group-info strong { color:#176ba5; }
+
+.conn-pill { border-color:#cad7de; color:#6d7e87; }
+.conn-pill.online { color:#0b8e55; border-color:#9dd7ba; background:#eefaf4; }
+.conn-pill.offline { color:#bd7300; border-color:#e5c17e; background:#fff7e6; }
+
+.ariza-alert {
+  background:#fff2f2;
+  border:1px solid #e8b0b0;
+}
+.ariza-alert-text { color:#c33232; }
+.ariza-alert-btn { background:#d94343; }
+.ariza-alert-btn:hover { background:#b92f2f; }
+
+.btn-gonder {
+  background:linear-gradient(90deg,#1687d4,#0e72b7);
+  color:#fff;
+  box-shadow:0 4px 18px rgba(22,135,212,.22);
+}
+.btn-gonder:hover { background:#0f78bf; }
+
+.btn-gonder:disabled {
+  background:#dce5ea;
+  color:#83919a;
+}
+
+.btn-pdf {
+  background:#fff;
+  border:1px solid #c9d7df;
+  color:#60717b;
+}
+.btn-pdf:hover {
+  border-color:#1687d4;
+  color:#1687d4;
+  background:#f3faff;
+}
+
+.foto-thumb {
+  border-color:#cbd9e1;
+  background:#edf3f6;
+}
+.foto-del {
+  background:rgba(38,55,64,.72);
+}
+.btn-foto-ekle {
+  border-color:#b9cbd5;
+  background:#f8fbfc;
+  color:#75858e;
+}
+.btn-foto-ekle:hover {
+  border-color:#1687d4;
+  color:#1687d4;
+  background:#f0f8fd;
+}
+
+.success-icon {
+  background:#e6f8ef;
+}
+.success-meta {
+  background:#fff;
+  border:1px solid #d2dfe6;
+  box-shadow:0 2px 10px rgba(30,60,80,.05);
+}
+.success-meta-row { border-bottom-color:#e3eaee; }
+.success-meta-key { color:#71818a; }
+.success-meta-val { color:#176ba5; }
+
+.toast {
+  background:#fff;
+  color:#293a43;
+  border:1px solid #cfdce3;
+  border-left:4px solid #1687d4;
+  box-shadow:0 8px 30px rgba(25,55,70,.14);
+}
+.toast.ok-t { border-left-color:var(--ok); }
+.toast.err-t { border-left-color:var(--danger); }
+
+.sync-bar {
+  background:#eaf5fb;
+  border-bottom:1px solid #c7e2f2;
+  color:#176ba5;
+}
+
+.loading-overlay { background:rgba(38,55,64,.38); }
+.spinner {
+  border-color:rgba(22,135,212,.20);
+  border-top-color:#1687d4;
+}
+
+::-webkit-scrollbar-track { background:#eef3f7; }
+::-webkit-scrollbar-thumb { background:#bdccd5; }
+
+/* Fotoğraf ve imza alt bilgi kutuları */
+.panel-body > div[style*="rgba(245,196,0,.06)"] {
+  background:#f7f3e7 !important;
+  border-color:#ead9a6 !important;
+  color:#6e6a59 !important;
+}
+
+/* Inline altın IATF etiketlerini açık temaya uyarla */
+.check-tag[style*="rgba(245,196,0,.7)"] {
+  color:#987100 !important;
+  border-color:#ead69d !important;
+  background:#fffaf0;
+}
+
+/* Kritik etiketlerin okunabilirliği */
+.check-tag[style*="#f44336"] { background:#fff0f0; }
+.check-tag[style*="#ff9800"] { background:#fff6e5; }
+
+/* Print zaten açık tema kullanıyor; korunuyor. */
+
+
+/* ============================================================
+   BURKAB FR-40 — DAHA RENKLİ PROFESYONEL KATMAN
+   Renkler kontrollü kullanılır: her bölümün kendi kimliği var.
+   ============================================================ */
+
+/* Genel zemin */
+body{
+  background:linear-gradient(135deg,#edf4f8 0%,#f8fbfd 52%,#eef6f3 100%);
+}
+
+/* Üst başlık */
+.hdr{
+  background:linear-gradient(100deg,#263b49 0%,#176b9f 58%,#147d69 100%);
+  border-bottom:0;
+}
+.hdr-logo{color:#ffd34d;text-shadow:0 1px 2px rgba(0,0,0,.15)}
+.hdr-sub{color:#dcecf5}
+.hdr-badge{
+  background:linear-gradient(135deg,#f6c63c,#e6a900);
+  border-color:#ffe28a;
+  color:#263640;
+  box-shadow:0 2px 8px rgba(0,0,0,.12);
+}
+
+/* Form no kartı */
+.main>.panel:first-child .panel-head{
+  background:linear-gradient(90deg,#e2f2ff,#eef9ff,#eafaf5);
+  border-bottom:3px solid #56a9d8;
+}
+.form-no-display{
+  background:linear-gradient(135deg,#eaf6ff,#f5fbff);
+  border:2px solid #9ed0ed;
+  box-shadow:inset 0 1px 0 #fff,0 3px 10px rgba(22,135,212,.08);
+}
+.iatf-ref{
+  background:linear-gradient(90deg,#f2eaff,#eaf5ff);
+  border-color:#cdb6ed;
+  color:#7041aa;
+}
+
+/* İlerleme */
+.prog-wrap{
+  background:#fff;
+  border:1px solid #d4e1e8;
+  border-radius:10px;
+  padding:11px 13px 10px;
+  box-shadow:0 2px 9px rgba(35,65,80,.05);
+}
+.prog-bar-bg{height:10px;background:#dce9ef}
+.prog-bar-fill{
+  background:linear-gradient(90deg,#159b62 0%,#25b56e 55%,#e5a800 100%);
+  box-shadow:0 0 8px rgba(21,155,98,.18);
+}
+
+/* Özet kartlarını gerçekten renkli yap */
+.ozet-banner{
+  background:linear-gradient(90deg,#fff,#fbfdff);
+  border:1px solid #cfdde5;
+  padding:12px;
+}
+.oz-card{
+  border-radius:9px;
+  padding:10px 6px;
+  border:1px solid transparent;
+}
+.oz-ok{
+  background:#eaf9f1;
+  border-color:#b8e3cc;
+}
+.oz-warn{
+  background:#fff6e3;
+  border-color:#efd39b;
+}
+.oz-bad{
+  background:#fff0f0;
+  border-color:#eab8b8;
+}
+.oz-pct{
+  background:#eef5ff;
+  border-color:#c1d9f0;
+}
+.oz-ok .oz-val{color:#079653}
+.oz-warn .oz-val{color:#d27b00}
+.oz-bad .oz-val{color:#d33737}
+.oz-pct .oz-val{color:#176ba5}
+
+/* Bölüm kartları — her bölümün başlığı farklı renkte */
+#checkList>.panel:nth-child(1) .panel-head{
+  background:linear-gradient(90deg,#fff0f0,#fff9f9);
+  border-bottom:3px solid #df6464;
+}
+#checkList>.panel:nth-child(1) .panel-dot{background:#d63b3b}
+#checkList>.panel:nth-child(1) .panel-title{color:#b72d2d}
+
+#checkList>.panel:nth-child(2) .panel-head{
+  background:linear-gradient(90deg,#fff4e3,#fffbf4);
+  border-bottom:3px solid #eca13c;
+}
+#checkList>.panel:nth-child(2) .panel-dot{background:#e58a00}
+#checkList>.panel:nth-child(2) .panel-title{color:#b66a00}
+
+#checkList>.panel:nth-child(3) .panel-head{
+  background:linear-gradient(90deg,#fffbe4,#fffef7);
+  border-bottom:3px solid #e1bd36;
+}
+#checkList>.panel:nth-child(3) .panel-dot{background:#d1a900}
+#checkList>.panel:nth-child(3) .panel-title{color:#947500}
+
+#checkList>.panel:nth-child(4) .panel-head{
+  background:linear-gradient(90deg,#eaf9f1,#f5fcf8);
+  border-bottom:3px solid #58b984;
+}
+#checkList>.panel:nth-child(4) .panel-dot{background:#0b9b5b}
+#checkList>.panel:nth-child(4) .panel-title{color:#087a4a}
+
+#checkList>.panel:nth-child(5) .panel-head{
+  background:linear-gradient(90deg,#eaf5ff,#f5faff);
+  border-bottom:3px solid #64a9db;
+}
+#checkList>.panel:nth-child(5) .panel-dot{background:#1687d4}
+#checkList>.panel:nth-child(5) .panel-title{color:#0d67a8}
+
+/* Kontrol maddeleri: hafif renkli numara alanı ve hover */
+.check-item{
+  transition:transform .15s,box-shadow .15s,border-color .15s;
+}
+.check-item:hover{
+  transform:translateY(-1px);
+  box-shadow:0 4px 13px rgba(35,65,80,.08);
+}
+.check-item.state-ok{box-shadow:inset 4px 0 #16a363,0 2px 8px rgba(22,163,99,.07)}
+.check-item.state-warn{box-shadow:inset 4px 0 #e99a12,0 2px 8px rgba(233,154,18,.07)}
+.check-item.state-bad{box-shadow:inset 4px 0 #d94343,0 2px 8px rgba(217,67,67,.07)}
+
+.check-btns{
+  background:#f8fafb;
+}
+.cbtn.ok-btn:not(.active):hover{background:#e9f8f0;color:#07834d}
+.cbtn.warn-btn:not(.active):hover{background:#fff5df;color:#b66a00}
+.cbtn.bad-btn:not(.active):hover{background:#fff0f0;color:#c73535}
+
+/* Genel bilgi kartına mavi/yeşil üst çizgi */
+#mainContent>.panel:nth-of-type(2) .panel-head{
+  background:linear-gradient(90deg,#e5f3ff,#f2fbff,#effaf5);
+  border-bottom:3px solid #4ea6d8;
+}
+
+/* Fotoğraf kartı */
+#mainContent>.panel:nth-of-type(3) .panel-head{
+  background:linear-gradient(90deg,#f0eaff,#faf7ff);
+  border-bottom:3px solid #8a5bc5;
+}
+#mainContent>.panel:nth-of-type(3) .panel-dot{background:#7540bd}
+#mainContent>.panel:nth-of-type(3) .panel-title{color:#6632a5}
+
+/* İmza/onay kartı */
+#mainContent>.panel:nth-of-type(4) .panel-head{
+  background:linear-gradient(90deg,#e9f8f2,#f5fcf9);
+  border-bottom:3px solid #4caf82;
+}
+#mainContent>.panel:nth-of-type(4) .panel-dot{background:#0b9b5b}
+#mainContent>.panel:nth-of-type(4) .panel-title{color:#087a4a}
+
+/* IATF onay kutusu */
+.panel-body>div[style*="rgba(245,196,0,.06)"]{
+  background:linear-gradient(90deg,#fff8e7,#fffdf5)!important;
+  border:1px solid #ead39b!important;
+  border-left:4px solid #e0a400!important;
+  color:#756946!important;
+}
+
+/* Ana gönder butonu daha canlı */
+.btn-gonder{
+  background:linear-gradient(100deg,#117cc2,#168fd7 55%,#159a70);
+  border:0;
+  box-shadow:0 5px 18px rgba(22,135,212,.22);
+}
+.btn-gonder:hover{
+  background:linear-gradient(100deg,#0d70b1,#1284c9 55%,#0d8962);
+}
+
+/* PDF butonu mavi */
+.btn-pdf{
+  background:linear-gradient(90deg,#fff,#f4f9fc);
+}
+
+/* Arıza alarmı */
+.ariza-alert{
+  background:linear-gradient(90deg,#fff0f0,#fff7f7);
+  border-left:5px solid #d63b3b;
+  box-shadow:0 3px 12px rgba(214,59,59,.08);
+}
+
+/* Fotoğraf ekleme */
+.btn-foto-ekle{
+  background:linear-gradient(135deg,#f5f9fc,#eef7fb);
+}
+
+/* Başarı ekranı */
+.success-icon{
+  box-shadow:0 4px 18px rgba(11,155,91,.15);
+}
+
+/* Küçük ekranlarda renkli kartlar da temiz kalsın */
+@media(max-width:480px){
+  .oz-card{padding:9px 4px}
+  .oz-val{font-size:23px}
+  .panel-head{padding:11px 14px}
+}
+
 </style>
 </head>
 <body>
