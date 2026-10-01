@@ -1394,54 +1394,54 @@ const KONTROL_LISTESI = [
   // BÖLÜM 1: GÜVENLİK
   {
     id: 'g1', bolum: 'GÜVENLİK', no: 'G-01',
-    kriter: 'Acil Stop butonları aktif mi?',
-    metod: 'Her butona el ile bas → Makine anında durmalı, resetlenmeli. Işık göstergesi yanıyor mu?',
+    kriter: 'Acil Stop butonları sağlam ve aktif mi?',
+    metod: 'Her butona el ile bas → Makine anında durmalı → Sesli uyarı sireni + Işık aktif mi ?',
     ekipman: 'Gözlük, eldiven', ppe: '🥽🧤',
-    kritiklik: 'KRİTİK', iatf: '§8.5.1.6'
+    kritiklik: 'KRİTİK', iatf: '§8.5.1.5 h'
   },
   {
     id: 'g2', bolum: 'GÜVENLİK', no: 'G-02',
-    kriter: 'Koruyucu kapak/muhafazalar yerinde ve sabit mi?',
+    kriter: 'Koruyucu kapak/muhafazalar yerinde,sağlam ve sabit mi?',
     metod: 'Tüm kapak ve muhafazaları görsel + el ile kontrol et. Gevşek veya eksik muhafaza varsa makineyi çalıştırma.',
     ekipman: 'Gözlük', ppe: '🥽',
-    kritiklik: 'KRİTİK', iatf: '§8.5.1.6'
+    kritiklik: 'KRİTİK', iatf: '§8.5.1.5 h'
   },
   {
     id: 'g3', bolum: 'GÜVENLİK', no: 'G-03',
     kriter: 'Makine çevresi temiz ve engelsiz mi? (1 m yarıçap)',
     metod: 'Makine etrafında yabancı cisim, kayma riski (yağ/su birikintisi) veya erişim engeli var mı kontrol et.',
     ekipman: 'Gözlük', ppe: '🥽',
-    kritiklik: 'NORMAL', iatf: '§8.5.1.6'
+    kritiklik: 'NORMAL', iatf: '§8.5.1.5 h'
   },
 
   // BÖLÜM 2: MEKANİK
   {
     id: 'm1', bolum: 'MEKANİK', no: 'M-01',
     kriter: 'Hava basıncı doğru aralıkta mı? (5,5 – 6,5 bar)',
-    metod: 'Manometreden oku. Aralık dışındaysa ayarla veya bakım çağır. Pnömatik kaçak sesi var mı dinle.',
+    metod: 'Manometreden oku. Aralık dışındaysa ayarla veya bakım ekibine bildir. Pnömatik kaçak sesi var mı dinle.',
     ekipman: 'Gözlük', ppe: '🥽',
-    kritiklik: 'YÜKSEK', iatf: '§8.5.1.6'
+    kritiklik: 'YÜKSEK', iatf: '§8.5.1.5 h'
   },
   {
     id: 'm2', bolum: 'MEKANİK', no: 'M-02',
-    kriter: 'Yağlama seviyesi Min-Max arasında mı?',
+    kriter: 'Yağlama haznesindeki yağ seviyesi Min-Max arasında mı?',
     metod: 'Şeffaf kavanozdan gözle kontrol et. Eksikse uygun yağ ekle. Renk/koku anormalse bakım çağır.',
     ekipman: 'Gözlük', ppe: '🥽',
-    kritiklik: 'YÜKSEK', iatf: '§8.5.1.6'
+    kritiklik: 'YÜKSEK', iatf: '§8.5.1.5 h'
   },
   {
     id: 'm3', bolum: 'MEKANİK', no: 'M-03',
     kriter: 'Krimp kalıbı ve Kalıp tutucu tabanda çatlak / kırık / aşınma var mı?',
     metod: 'Görsel kontrol + hava üfle. Kalıp yüzeyinde çizik, çatlak? Terminal sıkışması? Kalıp numarası doğru mu?',
     ekipman: 'Gözlük, maske', ppe: '🥽😷',
-    kritiklik: 'KRİTİK', iatf: '§8.5.1.6'
+    kritiklik: 'KRİTİK', iatf: '§8.5.1.5 h + §8.5.1.6'
   },
   {
     id: 'm4', bolum: 'MEKANİK', no: 'M-04',
     kriter: 'Gevşek / eksik civata veya bağlantı elemanı var mı?',
     metod: 'Konveyör, tutucu ayak, kapak, kalıp tutucularda görsel + el kontrolü. Gevşekse sık, renkli işaretle.',
     ekipman: 'Gözlük', ppe: '🥽',
-    kritiklik: 'NORMAL', iatf: '§8.5.1.6',
+    kritiklik: 'NORMAL', iatf: '§8.5.1.5 h',
     alet: 'Allen anahtar takımı'
   },
   {
@@ -1449,7 +1449,7 @@ const KONTROL_LISTESI = [
     kriter: 'Konveyör bant / taşıma sistemi düzgün çalışıyor mu?',
     metod: 'Kısa çalıştırarak gözlemle. Kayma, atlama, titreşim, ses anormalliği var mı?',
     ekipman: 'Gözlük', ppe: '🥽',
-    kritiklik: 'YÜKSEK', iatf: '§8.5.1.6'
+    kritiklik: 'YÜKSEK', iatf: '§8.5.1.5 h'
   },
 
   // BÖLÜM 3: ELEKTRİK / KABİN TEMİZLİĞİ
@@ -1458,21 +1458,21 @@ const KONTROL_LISTESI = [
     kriter: 'Kumanda paneli / elektrik kabini temiz, hasar yok mu?',
     metod: 'Dışarıdan görsel kontrol. Isınma izi, yanık kokusu, salınan tel veya açık kablo var mı?',
     ekipman: 'Gözlük', ppe: '🥽',
-    kritiklik: 'KRİTİK', iatf: '§8.5.1.6'
+    kritiklik: 'KRİTİK', iatf: '§8.5.1.5 h'
   },
   {
     id: 'e2', bolum: 'ELEKTRİK', no: 'E-02',
     kriter: 'Sensörler temiz ve doğru konumda mı?',
     metod: 'Besleme kanalı, krimp kalıp algılayıcılarını kontrol et. Sensörler kirliyse yumuşak bezle sil.',
     ekipman: 'Gözlük', ppe: '🥽',
-    kritiklik: 'YÜKSEK', iatf: '§8.5.1.6'
+    kritiklik: 'YÜKSEK', iatf: '§8.5.1.5 h'
   },
   {
     id: 'e3', bolum: 'ELEKTRİK', no: 'E-03',
     kriter: 'Uyarı lambaları / HMI ekranında hata kodu var mı?',
     metod: 'Kullanıcı panel ekranına bak. Aktif alarm/hata kodu varsa not al, sıfırlama yapılabilecekse yap.',
     ekipman: 'Gözlük', ppe: '🥽',
-    kritiklik: 'YÜKSEK', iatf: '§8.5.1.6'
+    kritiklik: 'YÜKSEK', iatf: '§8.5.1.5 h-i'
   },
 
   // BÖLÜM 4: TEMİZLİK
@@ -1481,7 +1481,7 @@ const KONTROL_LISTESI = [
     kriter: 'Makine gövdesi temizlendi mi? (Tel artığı, toz, yağ lekesi)',
     metod: 'Hava tabancası + bez ile terminal kabı, PVC kabı, hurda kabı ve gövdeyi temizle.',
     ekipman: 'Gözlük, maske', ppe: '🥽😷',
-    kritiklik: 'NORMAL', iatf: '§8.5.1.6',
+    kritiklik: 'NORMAL', iatf: '§8.5.1.5 h',
     alet: 'Hava tabancası, temizlik bezi, camsil'
   },
   {
@@ -1489,7 +1489,7 @@ const KONTROL_LISTESI = [
     kriter: 'Hurda/atık kutusu boşaltıldı mı? (%80 dolu sınırı)',
     metod: 'Terminal artığı, PVC/yalıtkan hurda kutularını kontrol et. Doluysa boşalt ve yerine koy.',
     ekipman: 'Eldiven', ppe: '🧤',
-    kritiklik: 'NORMAL', iatf: '§8.5.1.6'
+    kritiklik: 'NORMAL', iatf: '5S + §8.5.1.5 h'
   },
 
   // BÖLÜM 5: ÇALIŞMA TESTİ
@@ -1498,7 +1498,7 @@ const KONTROL_LISTESI = [
     kriter: 'Boşta çalışma testi — Anormal ses / titreşim / koku var mı?',
     metod: 'Makineyi kısa süre (~30 sn) boşta çalıştır. Anormal ses, aşırı titreşim veya yanık kokusu var mı dinle/kokla.',
     ekipman: 'Kulaklık (ortam gürültüsü varsa)', ppe: '🎧',
-    kritiklik: 'KRİTİK', iatf: '§8.5.1.6'
+    kritiklik: 'KRİTİK', iatf: '§8.5.1.5 h'
   },
 ];
 
