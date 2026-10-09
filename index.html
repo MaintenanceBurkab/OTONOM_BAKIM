@@ -1304,7 +1304,20 @@ body{
       </div>
       <div class="field full">
         <label>Personel Sicil No <span class="req">*</span></label>
-        <input type="text" id="operatorSicil" placeholder="Sicil No" autocomplete="off">
+        ```html
+<input
+  type="text"
+  id="operatorSicil"
+  placeholder="335"
+   autocomplete="off"
+    inputmode="numeric"
+     pattern="[0-9]+"
+      oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+      aria-describedby="operatorSicilYardim">
+
+        <small id="operatorSicilYardim" style="display:block;margin-top:5px;color:#666;">
+        Yalnızca rakam giriniz. Örnek: 335
+       </small>```
       </div>
     </div>
   </div>
@@ -1979,7 +1992,19 @@ function formDogrula() {
   if (!vardiya)  { showToast('❗ Vardiya seçiniz!', 'err'); return false; }
   if (!tarih)    { showToast('❗ Tarih giriniz!', 'err'); return false; }
   if (!operator) { showToast('❗ Operatör adı giriniz!', 'err'); return false; }
-  if (!operatorSicil) { showToast('❗ Personel Sicil No giriniz!', 'err'); return false; }
+  ```javascript
+if (!operatorSicil) {
+  showToast('❗ Personel Sicil No boş bırakılamaz!', 'err');
+  document.getElementById('operatorSicil').focus();
+  return false;
+}
+
+if (!/^[0-9]+$/.test(operatorSicil)) {
+  showToast('❗ Sicil No yalnızca rakamlardan oluşmalıdır!', 'err');
+  document.getElementById('operatorSicil').focus();
+  return false;
+}
+```
 
   const bos = KONTROL_LISTESI.filter(i => !durumler[i.id]);
   if (bos.length > 0) {
